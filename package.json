@@ -1,7 +1,6 @@
 {
   "name": "mango-shop-server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +10,15 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoungBeomLee/node_server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YoungBeomLee/node_server/issues"
+  },
+  "homepage": "https://github.com/YoungBeomLee/node_server#readme",
+  "description": ""
 }
