@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require('cors');
 const app = express();
 const port = 8080;
+const models = require('./models');
 
 
 app.use(express.json()); //json 형식의 데이터를 처리할 수 있게 설정하는 코드
@@ -26,10 +27,25 @@ app.get('/products/:id/:events/:eventId', (req, res) => {
     const {id,eventId}=params;
     res.send(`id는 ${id}이고 eventId는 ${eventId}입니다`);
 })
-
+//상품생성데이터를 데이터베이스에 추가
 app.post("/products", (req, res) => {
     const body=req.body;
-    res.send(body);
+    //1.상수 body에 전달받은 값을 구조분해할당
+    const {name,description,pirce,seller}=body;
+    //레코드 생성
+    models.Product.create({
+        name,
+        description,
+        price,
+        seller
+    }).then(function (result){
+        console.log('상품생성결과:',result);
+        res.send({result});
+    }).catch(function(error){
+        
+    });
+    console.log(body);
+    
 });
 
 app.post("/login", (req, res) => {
@@ -39,4 +55,11 @@ app.post("/login", (req, res) => {
 //세팅한 app을 실행시킨다.
 app.listen(port, () => {
     console.log('망고샵의 쇼핑몰 서버가 돌아가고 있습니다.');
+    models.sequelize.sync().then(function(){
+        console.log("😁db연결 성공");
+    }).catch(function(err){
+        console.log(err);
+        console.log("db연결 x");
+        process.exit();
+    })
 });
